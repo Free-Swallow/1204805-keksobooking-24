@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг»
 
 * Студент: [Николай Егоров](https://up.htmlacademy.ru/javascript/24/user/1204805).
-* Наставник: `Неизвестно`.
+* Наставник: [Андрей Устименко](https://htmlacademy.ru/profile/spiritmoon).
 
 ---
 
