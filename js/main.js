@@ -11,9 +11,9 @@ const getRandomNumber = (min, max) => {
 };
 
 const getRandomFractionalNumber = (min, max, point) => {
-  const calculationFracNum = checkValues(min, max) ? Math.round(Math.random() * Math.random() * (max - min + 1) + min).toFixed(point) : null;
+  const calculationFracNum = checkValues(min, max) ? (Math.random() * (max - min + 1) + min).toFixed(point) : null;
   return calculationFracNum;
 };
 
-getRandomNumber(1, 9);
-getRandomFractionalNumber(1, 9, 4);
+getRandomNumber(9, 25);
+getRandomFractionalNumber(9, 25, 2);
