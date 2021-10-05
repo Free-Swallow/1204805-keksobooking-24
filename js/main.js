@@ -1,13 +1,18 @@
-const validationValues = (min, max) => {
-  return (min < 0 || max < 0 || max < min) ? false : true;
+const checkValues = (min, max) => {
+  if (min < 0 || max < 0 || max < min) {
+    return false;
+  }
+  return true;
 };
 
 const getRandomNumber = (min, max) => {
-  return validationValues(min, max) ? Math.round(Math.random() * (max - min + 1)) + min : null;
+  const calculationRanNum = checkValues(min, max) ? Math.round(Math.random() * (max - min + 1)) + min : null;
+  return calculationRanNum;
 };
 
 const getRandomFractionalNumber = (min, max, point) => {
-  return validationValues(min, max) ? Math.round(Math.random() * Math.random() * (max - min + 1) + min).toFixed(point) : null;
+  const calculationFracNum = checkValues(min, max) ? Math.round(Math.random() * Math.random() * (max - min + 1) + min).toFixed(point) : null;
+  return calculationFracNum;
 };
 
 getRandomNumber(1, 9);
