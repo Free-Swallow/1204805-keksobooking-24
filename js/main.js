@@ -82,6 +82,8 @@ const offer = {
 author.avatar;
 offer.photos;
 
+const createFlyers = Array.from({length: 2});
+
 // console.log('Аватар: ' + author.avatar);
 // console.log('Заголовок: ' + offer.title);
 // console.log('Координаты: ' + offer.address);
@@ -94,3 +96,24 @@ offer.photos;
 // console.log('Дополнительно: ' + offer.features);
 // console.log('Описание: ' + offer.description);
 // console.log('Фото: ' + offer.photos);
+
+const getOffer = () => {
+  return {
+  title: 'Уютная квартира',
+  address: [location.lat, location.lng],
+  price: getRandomNumber(10000, 125000),
+  type: getTypePlace,
+  rooms: getRandomNumber(1, 4),
+  guests: getRandomNumber(1, 6),
+  checkin: getCheckTime,
+  checkout: getCheckTime,
+  features: getArray(FEATURES_PALACE),
+  description: getDescription,
+  photos: getArray(PHOTO_URL)
+  };
+}
+
+const createFlyers = Array.from({length: 10}, getOffer);
+console.log(createFlyers);
+
+createFlyers;
