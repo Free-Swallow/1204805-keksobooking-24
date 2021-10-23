@@ -19,17 +19,54 @@ const getRandomFractionalNumber = (min, max, point) => {
 
 // lesson 4
 
-const AVATAR_NUMBER = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10'];
-const getAvatarNum =  AVATAR_NUMBER[getRandomNumber(0, AVATAR_NUMBER.length - 1)];
-
-const TYPE_PLACE = ['palace', 'flat', 'house', 'bungalow', 'hotel'];
-const getTypePlace = TYPE_PLACE[getRandomNumber(0, TYPE_PLACE.length - 1)];
-
-const CHECK_TIME = ['12:00', '13:00', '14:00'];
-const getCheckTime = CHECK_TIME[getRandomNumber(0, CHECK_TIME.length - 1)];
-
-
-const FEATURES_PALACE = [' wifi', ' dishwasher', ' parking', ' washer', ' elevator', ' conditioner'];
+const titlesList = [
+  'Уютная квартира',
+  'Помещение в Токио',
+  'Аренда жилья'
+];
+const avatarNumbers = [
+  '01',
+  '02',
+  '03',
+  '04',
+  '05',
+  '06',
+  '07',
+  '08',
+  '09',
+  '10'
+];
+const typesPlace = [
+  'palace',
+  'flat',
+  'house',
+  'bungalow',
+  'hotel'
+];
+const checkTimes = [
+  '12:00',
+  '13:00',
+  '14:00'
+];
+const FEATURES_PALACE = [
+  ' wifi',
+  ' dishwasher',
+  ' parking',
+  ' washer',
+  ' elevator',
+  ' conditioner'
+];
+const descriptionsList = [
+  'Сдаю помещение для жилья на длительный срок от собственника',
+  'Сдается квартира в новом доме на длительный срок рядом с метро',
+  'Сдаю квартиру на длительный срок, полностью меблированную и оснащенную бытовой техникой'
+];
+const PHOTOS_URL = [
+  'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg',
+  'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg',
+  'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg'
+];
+// const randomAvatarNum =  avatarNumbers[getRandomNumber(0, avatarNumbers.length - 1)];
 
 function getArray(arrayValue) {
   const maxLength = arrayValue.length;
@@ -47,36 +84,30 @@ function getArray(arrayValue) {
   return array;
 }
 
-const DESCRIPTION_LIST = ['Сдаю светлую и уютную однокомнатную квартиру на длительный срок от собственника', 'Сдается квартира в новом доме на длительный срок рядом с метро', 'Сдаю квартиру на длительный срок, полностью меблированную и оснащенную бытовой техникой'];
-const getDescription = DESCRIPTION_LIST[getRandomNumber(0, DESCRIPTION_LIST.length - 1)];
-
-const PHOTO_URL = ['https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg', 'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg', 'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg'];
-
-const author = {
-  avatar: `img/avatars/user${getAvatarNum}.png`,
-};
+// const author = {
+//   avatar: `img/avatars/user${randomAvatarNum}.png`,
+// };
 
 const location = {
   lat: getRandomFractionalNumber(35.65000, 35.70000, 5),
   lng: getRandomFractionalNumber(139.70000, 139.80000, 5),
 };
 
-
 const offer = {
-  title: 'Уютная квартира',
-  address: [location.lat, location.lng],
+  title: titlesList[getRandomNumber(0, titlesList.length - 1)],
+  address: [getRandomFractionalNumber(35.65000, 35.70000, 5), getRandomFractionalNumber(139.70000, 139.80000, 5)],
   price: getRandomNumber(10000, 125000),
-  type: getTypePlace,
+  type: typesPlace[getRandomNumber(0, typesPlace.length - 1)],
   rooms: getRandomNumber(1, 4),
   guests: getRandomNumber(1, 6),
-  checkin: getCheckTime,
-  checkout: getCheckTime,
+  checkin: checkTimes[getRandomNumber(0, checkTimes.length - 1)],
+  checkout: checkTimes[getRandomNumber(0, checkTimes.length - 1)],
   features: getArray(FEATURES_PALACE),
-  description: getDescription,
-  photos: getArray(PHOTO_URL),
+  description: descriptionsList[getRandomNumber(0, descriptionsList.length - 1)],
+  photos: getArray(PHOTOS_URL),
 };
 
-author.avatar;
+// author.avatar;
 offer.photos;
 
 // console.log('Аватар: ' + author.avatar);
@@ -94,17 +125,18 @@ offer.photos;
 
 const getOffer = () => (
   {
-    title: 'Уютная квартира',
-    address: [location.lat, location.lng],
+    title: titlesList[getRandomNumber(0, titlesList.length - 1)],
+    address: [getRandomFractionalNumber(35.65000, 35.70000, 5), getRandomFractionalNumber(139.70000, 139.80000, 5)],
     price: getRandomNumber(10000, 125000),
-    type: getTypePlace,
+    type: typesPlace[getRandomNumber(0, typesPlace.length - 1)],
     rooms: getRandomNumber(1, 4),
     guests: getRandomNumber(1, 6),
-    checkin: getCheckTime,
-    checkout: getCheckTime,
+    checkin: checkTimes[getRandomNumber(0, checkTimes.length - 1)],
+    checkout: checkTimes[getRandomNumber(0, checkTimes.length - 1)],
     features: getArray(FEATURES_PALACE),
-    description: getDescription,
-    photos: getArray(PHOTO_URL),
+    description: descriptionsList[getRandomNumber(0, descriptionsList.length - 1)],
+    photos: getArray(PHOTOS_URL),
+    avatar: 'img/avatars/user' + avatarNumbers[getRandomNumber(0, avatarNumbers.length - 1)] +'.png',
   }
 );
 
