@@ -48,7 +48,7 @@ const checkTimes = [
   '13:00',
   '14:00'
 ];
-const FEATURES_PALACE = [
+const featuresPalace = [
   ' wifi',
   ' dishwasher',
   ' parking',
@@ -61,14 +61,18 @@ const descriptionsList = [
   'Сдается квартира в новом доме на длительный срок рядом с метро',
   'Сдаю квартиру на длительный срок, полностью меблированную и оснащенную бытовой техникой'
 ];
-const PHOTOS_URL = [
+const photosUrl = [
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg',
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg',
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg'
 ];
-// const randomAvatarNum =  avatarNumbers[getRandomNumber(0, avatarNumbers.length - 1)];
 
-function getArray(arrayValue) {
+const minRoom = 1;
+const maxRoom = 4;
+const minGuests = 1;
+const maxGuests = 6;
+
+function getRandomValue(arrayValue) {
   const maxLength = arrayValue.length;
   const lengthOfArray = getRandomNumber(1, maxLength);
   const array = [];
@@ -84,58 +88,19 @@ function getArray(arrayValue) {
   return array;
 }
 
-// const author = {
-//   avatar: `img/avatars/user${randomAvatarNum}.png`,
-// };
-
-const location = {
-  lat: getRandomFractionalNumber(35.65000, 35.70000, 5),
-  lng: getRandomFractionalNumber(139.70000, 139.80000, 5),
-};
-
-const offer = {
-  title: titlesList[getRandomNumber(0, titlesList.length - 1)],
-  address: [getRandomFractionalNumber(35.65000, 35.70000, 5), getRandomFractionalNumber(139.70000, 139.80000, 5)],
-  price: getRandomNumber(10000, 125000),
-  type: typesPlace[getRandomNumber(0, typesPlace.length - 1)],
-  rooms: getRandomNumber(1, 4),
-  guests: getRandomNumber(1, 6),
-  checkin: checkTimes[getRandomNumber(0, checkTimes.length - 1)],
-  checkout: checkTimes[getRandomNumber(0, checkTimes.length - 1)],
-  features: getArray(FEATURES_PALACE),
-  description: descriptionsList[getRandomNumber(0, descriptionsList.length - 1)],
-  photos: getArray(PHOTOS_URL),
-};
-
-// author.avatar;
-offer.photos;
-
-// console.log('Аватар: ' + author.avatar);
-// console.log('Заголовок: ' + offer.title);
-// console.log('Координаты: ' + offer.address);
-// console.log('Цена: ' + offer.price);
-// console.log('Тип: ' + offer.type);
-// console.log('Комнаты: ' + offer.rooms);
-// console.log('Кол-во гостей: ' + offer.guests);
-// console.log('Время заселения: ' + offer.checkin);
-// console.log('Время выселения: ' + offer.checkout);
-// console.log('Дополнительно: ' + offer.features);
-// console.log('Описание: ' + offer.description);
-// console.log('Фото: ' + offer.photos);
-
 const getOffer = () => (
   {
     title: titlesList[getRandomNumber(0, titlesList.length - 1)],
     address: [getRandomFractionalNumber(35.65000, 35.70000, 5), getRandomFractionalNumber(139.70000, 139.80000, 5)],
     price: getRandomNumber(10000, 125000),
     type: typesPlace[getRandomNumber(0, typesPlace.length - 1)],
-    rooms: getRandomNumber(1, 4),
-    guests: getRandomNumber(1, 6),
+    rooms: getRandomNumber(minRoom, maxRoom),
+    guests: getRandomNumber(minGuests, maxGuests),
     checkin: checkTimes[getRandomNumber(0, checkTimes.length - 1)],
     checkout: checkTimes[getRandomNumber(0, checkTimes.length - 1)],
-    features: getArray(FEATURES_PALACE),
+    features: getRandomValue(featuresPalace),
     description: descriptionsList[getRandomNumber(0, descriptionsList.length - 1)],
-    photos: getArray(PHOTOS_URL),
+    photos: getRandomValue(photosUrl),
     avatar: 'img/avatars/user' + avatarNumbers[getRandomNumber(0, avatarNumbers.length - 1)] +'.png',
   }
 );
