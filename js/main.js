@@ -22,7 +22,7 @@ const getRandomFractionalNumber = (min, max, point) => {
 const titlesList = [
   'Уютная квартира',
   'Помещение в Токио',
-  'Аренда жилья'
+  'Аренда жилья',
 ];
 const avatarNumbers = [
   '01',
@@ -34,19 +34,19 @@ const avatarNumbers = [
   '07',
   '08',
   '09',
-  '10'
+  '10',
 ];
 const typesPlace = [
   'palace',
   'flat',
   'house',
   'bungalow',
-  'hotel'
+  'hotel',
 ];
 const checkTimes = [
   '12:00',
   '13:00',
-  '14:00'
+  '14:00',
 ];
 const featuresPalace = [
   ' wifi',
@@ -54,17 +54,17 @@ const featuresPalace = [
   ' parking',
   ' washer',
   ' elevator',
-  ' conditioner'
+  ' conditioner',
 ];
 const descriptionsList = [
   'Сдаю помещение для жилья на длительный срок от собственника',
   'Сдается квартира в новом доме на длительный срок рядом с метро',
-  'Сдаю квартиру на длительный срок, полностью меблированную и оснащенную бытовой техникой'
+  'Сдаю квартиру на длительный срок, полностью меблированную и оснащенную бытовой техникой',
 ];
 const photosUrl = [
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg',
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg',
-  'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg'
+  'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg',
 ];
 
 const minRoom = 1;
@@ -101,7 +101,7 @@ const getOffer = () => (
     features: getRandomValue(featuresPalace),
     description: descriptionsList[getRandomNumber(0, descriptionsList.length - 1)],
     photos: getRandomValue(photosUrl),
-    avatar: 'img/avatars/user' + avatarNumbers[getRandomNumber(0, avatarNumbers.length - 1)] +'.png',
+    avatar: `img/avatars/user${avatarNumbers[getRandomNumber(0, avatarNumbers.length - 1)]}.png`,
   }
 );
 
