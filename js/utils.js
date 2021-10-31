@@ -19,6 +19,7 @@ const getRandomNumberValues = (arr) => {
       array.push(el);
     }
   }
+
   return array;
 };
 

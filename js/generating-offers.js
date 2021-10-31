@@ -1,11 +1,11 @@
-import {getRandomNumber, getRandomFractionalNumber, getRandomNumberValues} from './generating-numbers.js';
+import {getRandomNumber, getRandomFractionalNumber, getRandomNumberValues} from './utils.js';
 
 const titles = [
   'Уютная квартира',
   'Помещение в Токио',
   'Аренда жилья',
 ];
-const avatarNum = [
+const avatarsNum = [
   '01',
   '02',
   '03',
@@ -17,7 +17,7 @@ const avatarNum = [
   '09',
   '10',
 ];
-const place = [
+const places = [
   'palace',
   'flat',
   'house',
@@ -42,31 +42,31 @@ const descriptions = [
   'Сдается квартира в новом доме на длительный срок рядом с метро',
   'Сдаю квартиру на длительный срок, полностью меблированную и оснащенную бытовой техникой',
 ];
-const photo = [
+const photos = [
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg',
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg',
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg',
 ];
 
-const minRoom = 1;
-const maxRoom = 4;
-const minGuests = 1;
-const maxGuests = 6;
+const MIN_ROOM = 1;
+const MAX_ROOM = 4;
+const MIN_GUESTS = 1;
+const MAX_GUESTS = 6;
 
 const getOffer = () => (
   {
     title: titles[getRandomNumber(0, titles.length - 1)],
     address: [getRandomFractionalNumber(35.65000, 35.70000, 5), getRandomFractionalNumber(139.70000, 139.80000, 5)],
     price: getRandomNumber(10000, 125000),
-    type: place[getRandomNumber(0, place.length - 1)],
-    rooms: getRandomNumber(minRoom, maxRoom),
-    guests: getRandomNumber(minGuests, maxGuests),
+    type: places[getRandomNumber(0, places.length - 1)],
+    rooms: getRandomNumber(MIN_ROOM, MAX_ROOM),
+    guests: getRandomNumber(MIN_GUESTS, MAX_GUESTS),
     checkin: checkTimes[getRandomNumber(0, checkTimes.length - 1)],
     checkout: checkTimes[getRandomNumber(0, checkTimes.length - 1)],
     features: getRandomNumberValues(features),
     description: descriptions[getRandomNumber(0, descriptions.length - 1)],
-    photos: getRandomNumberValues(photo),
-    avatar: `img/avatars/user${avatarNum[getRandomNumber(0, avatarNum.length - 1)]}.png`,
+    photos: getRandomNumberValues(photos),
+    avatar: `img/avatars/user${avatarsNum[getRandomNumber(0, avatarsNum.length - 1)]}.png`,
   }
 );
 
