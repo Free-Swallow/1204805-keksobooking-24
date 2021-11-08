@@ -70,7 +70,7 @@ const getOffer = () => (
   }
 );
 
-const createFlyers = Array.from({length: 10}, getOffer);
+const createFlyers = () => Array.from({length: 10}, getOffer);
 
 createFlyers;
 
