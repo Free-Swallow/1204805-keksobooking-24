@@ -8,8 +8,6 @@ const createdDataFlyers = createFlyers();
 const offerListFregment = document.createDocumentFragment();
 const mapCanvas = document.querySelector('#map-canvas');
 
-
-
 const getPlace = (place) => {
   switch (place) {
     case 'palace':
@@ -27,12 +25,11 @@ const getPlace = (place) => {
 
 createdDataFlyers.forEach((offer) => {
   const cardClone = cardTemplate.cloneNode(true);
-  const featursCardList = cardClone.querySelector('.popup__features');
   const photoWrapper = cardClone.querySelector('.popup__photos');
   const photo = photoWrapper.querySelector('.popup__photo');
   const photoFragment = document.createDocumentFragment();
 
-  Object.keys(offer).forEach((k) => offer[k] == null && delete cardClone[k]);
+  Object.keys(offer).forEach((k) => offer[k] = null && delete cardClone[k]);
 
   cardClone.querySelector('.popup__title').textContent = offer.title;
   cardClone.querySelector('.popup__text--address').textContent = offer.address;
@@ -55,5 +52,5 @@ createdDataFlyers.forEach((offer) => {
   photoWrapper.append(photoFragment);
   offerListFregment.appendChild(cardClone);
 
-  mapCanvas.append(offerListFregment)
+  mapCanvas.append(offerListFregment);
 });
