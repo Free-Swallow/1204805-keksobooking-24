@@ -30,12 +30,12 @@ const checkTimes = [
   '14:00',
 ];
 const features = [
-  ' wifi',
-  ' dishwasher',
-  ' parking',
-  ' washer',
-  ' elevator',
-  ' conditioner',
+  'wifi',
+  'dishwasher',
+  'parking',
+  'washer',
+  'elevator',
+  'conditioner',
 ];
 const descriptions = [
   'Сдаю помещение для жилья на длительный срок от собственника',
@@ -70,8 +70,8 @@ const getOffer = () => (
   }
 );
 
-const createFlyers = () => Array.from({length: 10}, getOffer);
+const createFlyers = () => Array.from({length: 1}, getOffer);
 
 createFlyers;
 
-export {createFlyers};
+export {createFlyers, getOffer};

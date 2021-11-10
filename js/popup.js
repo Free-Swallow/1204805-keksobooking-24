@@ -1,12 +1,9 @@
-import {createFlyers} from './generating-offers.js';
+import {getOffer} from './generating-offers.js';
 
+const map = document.querySelector('#map-canvas');
 const cardTemplate = document.querySelector('#card')
   .content
   .querySelector('.popup');
-
-const createdDataFlyers = createFlyers();
-const offerListFregment = document.createDocumentFragment();
-const mapCanvas = document.querySelector('#map-canvas');
 
 const getPlace = (place) => {
   switch (place) {
@@ -23,34 +20,109 @@ const getPlace = (place) => {
   }
 };
 
-createdDataFlyers.forEach((offer) => {
+const sortingFeatures = (offer, cardList) => {
+  const list = cardList.querySelectorAll('li');
+
+  list.forEach((currentList) => {
+    const complianceCheck = offer.some((currentOffer) => currentList.classList.contains(`popup__feature--${  currentOffer}`),
+    );
+
+    if (!complianceCheck) {
+      currentList.remove();
+    }
+  });
+  return list;
+};
+
+const generationPhotos = (offer, photos) => {
+  const photosFragment = document.createDocumentFragment();
+  const photoPattern = photos.querySelector('.popup__photo');
+  photos.innerHTML = '';
+
+  offer.forEach((currentUrl) => {
+    const photoElement = photoPattern.cloneNode(true);
+    photoElement.src = currentUrl;
+    photosFragment.appendChild(photoElement);
+  });
+
+  return photosFragment;
+};
+
+const createCard = (offer) => {
   const cardClone = cardTemplate.cloneNode(true);
-  const photoWrapper = cardClone.querySelector('.popup__photos');
-  const photo = photoWrapper.querySelector('.popup__photo');
-  const photoFragment = document.createDocumentFragment();
 
-  Object.keys(offer).forEach((k) => offer[k] = null && delete cardClone[k]);
-
-  cardClone.querySelector('.popup__title').textContent = offer.title;
-  cardClone.querySelector('.popup__text--address').textContent = offer.address;
-  cardClone.querySelector('.popup__text--price').textContent = `${offer.price} ₽/ночь`;
-  cardClone.querySelector('.popup__type').textContent = getPlace(offer.type);
-  cardClone.querySelector('.popup__text--capacity').textContent = `${offer.rooms} комнаты для ${offer.guests}`;
-  cardClone.querySelector('.popup__text--time').textContent = `Заезд после ${offer.checkin}, выезд до ${offer.checkout}`;
-  cardClone.querySelector('.popup__features').innerHTML = '';
-  cardClone.querySelector('.popup__features').textContent = offer.features;
-  cardClone.querySelector('.popup__description').textContent = offer.description;
-  cardClone.querySelector('.popup__photos').innerHTML = '';
-
-  for (let i = 0; i < offer.photos.length; i++) {
-    const photoElement = photo.cloneNode(true);
-    photoElement.src = offer.photos[i];
-    photoFragment.appendChild(photoElement);
+  const titleCard = cardClone.querySelector('.popup__title');
+  if (offer.title) {
+    titleCard.textContent = offer.title;
+  } else {
+    titleCard.remove();
   }
 
-  cardClone.querySelector('.popup__avatar').src = offer.avatar;
-  photoWrapper.append(photoFragment);
-  offerListFregment.appendChild(cardClone);
+  const addressCard = cardClone.querySelector('.popup__text--address');
+  if (offer.address) {
+    addressCard.textContent = offer.address;
+  } else {
+    addressCard.remove();
+  }
 
-  mapCanvas.append(offerListFregment);
-});
+  const priceCard = cardClone.querySelector('.popup__text--price');
+  if (offer.price) {
+    priceCard.textContent = offer.price;
+  } else {
+    priceCard.remove();
+  }
+
+  const typeCard = cardClone.querySelector('.popup__type');
+  if (offer.type) {
+    typeCard.textContent = getPlace(offer.type);
+  } else {
+    typeCard.remove();
+  }
+
+  const capacityCard = cardClone.querySelector('.popup__text--capacity');
+  if (offer.rooms && offer.guests) {
+    capacityCard.textContent = `${offer.rooms} комнаты для ${offer.guests}`;
+  } else {
+    capacityCard.remove();
+  }
+
+  const timeCard = cardClone.querySelector('.popup__text--time');
+  if (offer.checkin && offer.checkout) {
+    timeCard.textContent = `Заезд после ${offer.checkin}, выезд до ${offer.checkout}`;
+  } else {
+    timeCard.remove();
+  }
+
+  const featuresCard = cardClone.querySelector('.popup__features');
+  if (offer.features) {
+    sortingFeatures(offer.features, featuresCard);
+  } else {
+    featuresCard.remove();
+  }
+
+  const cardDescription = cardClone.querySelector('.popup__description');
+  if (offer.description) {
+    cardDescription.textContent = offer.description;
+  } else {
+    cardDescription.remove();
+  }
+
+  const photoWrapper = cardClone.querySelector('.popup__photos');
+  if (offer.photos) {
+    photoWrapper.appendChild(generationPhotos(offer.photos, photoWrapper));
+  } else {
+    photoWrapper.remove();
+  }
+
+  const avatarCard = cardClone.querySelector('.popup__avatar');
+  if (offer.avatar) {
+    avatarCard.src = offer.avatar;
+  } else {
+    avatarCard.remove();
+  }
+
+  return cardClone;
+};
+
+const sum = createCard(getOffer());
+map.appendChild(sum);
