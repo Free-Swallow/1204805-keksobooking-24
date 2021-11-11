@@ -48,16 +48,27 @@ const photos = [
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg',
 ];
 
-const MIN_ROOM = 1;
-const MAX_ROOM = 4;
-const MIN_GUESTS = 1;
-const MAX_GUESTS = 6;
+const MIN_ROOM = 0;
+const MAX_ROOM = 3;
+const MIN_GUESTS = 0;
+const MAX_GUESTS = 3;
+
+const MIN_PRICE = 10000;
+const MAX_PRICE = 125000;
+
+const MIN_LATITUBE = 35.65000;
+const MAX_LATITUBE = 35.70000;
+
+const MIN_LONGITUBE = 139.70000;
+const MAX_LONGITUBE = 139.80000;
+
+const ROUNDING_COORDINATE = 5;
 
 const getOffer = () => (
   {
     title: titles[getRandomNumber(0, titles.length - 1)],
-    address: [getRandomFractionalNumber(35.65000, 35.70000, 5), getRandomFractionalNumber(139.70000, 139.80000, 5)],
-    price: getRandomNumber(10000, 125000),
+    address: [getRandomFractionalNumber(MIN_LATITUBE, MAX_LATITUBE, ROUNDING_COORDINATE), getRandomFractionalNumber(MIN_LONGITUBE, MAX_LONGITUBE, ROUNDING_COORDINATE)],
+    price: getRandomNumber(MIN_PRICE, MAX_PRICE),
     type: places[getRandomNumber(0, places.length - 1)],
     rooms: getRandomNumber(MIN_ROOM, MAX_ROOM),
     guests: getRandomNumber(MIN_GUESTS, MAX_GUESTS),
@@ -70,7 +81,9 @@ const getOffer = () => (
   }
 );
 
-const createFlyers = () => Array.from({length: 1}, getOffer);
+const QUANITY_GENERATION = 1;
+
+const createFlyers = () => Array.from({length: QUANITY_GENERATION}, getOffer);
 
 createFlyers;
 

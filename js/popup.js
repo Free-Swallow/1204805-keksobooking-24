@@ -67,7 +67,7 @@ const createCard = (offer) => {
 
   const priceCard = cardClone.querySelector('.popup__text--price');
   if (offer.price) {
-    priceCard.textContent = offer.price;
+    priceCard.textContent = `${offer.price} ₽/ночь`;
   } else {
     priceCard.remove();
   }
