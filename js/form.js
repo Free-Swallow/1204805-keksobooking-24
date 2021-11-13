@@ -10,6 +10,24 @@ const timeIn = adForm.querySelector('#timein');
 const timeOut = adForm.querySelector('#timeout');
 const type = adForm.querySelector('#type');
 
+const MIN_LETTERS = 30;
+const MAX_LETTERS = 100;
+
+const minPricePlace = {
+  bungalow: '0',
+  flat: '1000',
+  hotel: '3000',
+  house: '5000',
+  palace: '10000',
+};
+
+const roomsForGuests = {
+  1: ['1'],
+  2: ['1', '2'],
+  3: ['1', '2', '3'],
+  100: ['0'],
+};
+
 /*
   Создать валидацию для полей:
     1. Title (Done!)
@@ -33,10 +51,7 @@ const type = adForm.querySelector('#type');
 
 // Валидатор поля title
 
-const MIN_LETTERS = 30;
-const MAX_LETTERS = 100;
-
-title.addEventListener('input', () => {
+const validityTitle = () => {
   const titleLength = title.value.length;
 
   if (titleLength < MIN_LETTERS) {
@@ -48,19 +63,13 @@ title.addEventListener('input', () => {
   }
 
   title.reportValidity();
-});
+}
+
+title.addEventListener('input', validityTitle);
 
 // Валидатор для минимальной цены для разных помещений
 
-const minPricePlace = {
-  bungalow: '0',
-  flat: '1000',
-  hotel: '3000',
-  house: '5000',
-  palace: '10000',
-};
-
-const onMinPrice = () => {
+const getMinPrice = () => {
   // Завести константу Минимального значения
   // Получить значение из type
   // Найти подходящще значение из объекта
@@ -73,21 +82,14 @@ const onMinPrice = () => {
   price.min = minPrice;
 };
 
-type.addEventListener('input', onMinPrice);
+type.addEventListener('input', getMinPrice);
 
 // Завести константу текущего значения
 // Получить значение выбраной комнаты
 // Сверить со списком
 // Элементу которого нет в списке, добовляем атрибут disabled, hidden
 
-const roomsForGuests = {
-  1: ['1'],
-  2: ['1', '2'],
-  3: ['1', '2', '3'],
-  100: ['0'],
-};
-
-const onLimitedGuests = () => {
+const getLimitedGuests = () => {
   const selectedRooms = roomNumbers.value;
 
   capacityItem.forEach((item) => {
@@ -99,7 +101,7 @@ const onLimitedGuests = () => {
   });
 };
 
-roomNumbers.addEventListener('input', onLimitedGuests);
+roomNumbers.addEventListener('input', getLimitedGuests);
 // Объявить константу, значение которой timein.value
 // Подставить константу в timeout
 
