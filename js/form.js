@@ -28,29 +28,6 @@ const roomsForGuests = {
   100: ['0'],
 };
 
-/*
-  Создать валидацию для полей:
-    1. Title (Done!)
-      a. Обязательное поле.
-      b. Минимальная длина — 30 символов.
-      c. Максимальная длина - 100 символов.
-    2. Price (Done!)
-      a. Обязательное поле.
-      b. Числовое поле.
-      c. Максимальное значение 1 000 000.
-
-    3. Room (Done!)
-      синхранизировано с Guests,
-      при выборе комнаты вводяться ограничения
-      на допустимые варианты выбора количества гостей.
-
-      4. Timein
-        Синхронизовать с полем timeout, при
-        выборе timein, timeout автоматически равняться доTimein;
-*/
-
-// Валидатор поля title
-
 const validityTitle = () => {
   const titleLength = title.value.length;
 
@@ -63,20 +40,11 @@ const validityTitle = () => {
   }
 
   title.reportValidity();
-}
+};
 
 title.addEventListener('input', validityTitle);
 
-// Валидатор для минимальной цены для разных помещений
-
 const getMinPrice = () => {
-  // Завести константу Минимального значения
-  // Получить значение из type
-  // Найти подходящще значение из объекта
-  // Присвоить значени из объекта в константу
-  // Изменить плейсхолдер на мин.знач
-  // изменить атрибут min у price на мин.значение
-
   const minPrice = minPricePlace[type.value];
   price.placeholder = minPrice;
   price.min = minPrice;
@@ -84,33 +52,43 @@ const getMinPrice = () => {
 
 type.addEventListener('input', getMinPrice);
 
-// Завести константу текущего значения
-// Получить значение выбраной комнаты
-// Сверить со списком
-// Элементу которого нет в списке, добовляем атрибут disabled, hidden
-
 const getLimitedGuests = () => {
   const selectedRooms = roomNumbers.value;
 
   capacityItem.forEach((item) => {
     const availableOptions = roomsForGuests[selectedRooms];
     const checkRoom = (availableOptions.indexOf(item.value) === -1);
-    item.disabled = checkRoom;
     item.hidden = checkRoom;
     item.selected = !(availableOptions.indexOf(item.value) === -1);
   });
 };
 
 roomNumbers.addEventListener('input', getLimitedGuests);
-// Объявить константу, значение которой timein.value
-// Подставить константу в timeout
 
-timeIn.addEventListener('input', () => {
+const conversionTimein = () => {
   const currentTimein = timeIn.value;
   timeOut.value = currentTimein;
-});
+};
 
-timeOut.addEventListener('input', () => {
+const conversionTimeout = () => {
   const currentTimeout = timeOut.value;
   timeIn.value = currentTimeout;
-});
+};
+
+timeIn.addEventListener('input', conversionTimein);
+
+timeOut.addEventListener('input', conversionTimeout);
+
+const disabledForm = () => {
+  const form = document.querySelector('.ad-form');
+
+  form.classList.add('ad-form--disabled');
+};
+
+const activeForm = () => {
+  const form = document.querySelector('.ad-form');
+
+  form.classList.remove('ad-form--disabled');
+};
+
+export {disabledForm, activeForm};

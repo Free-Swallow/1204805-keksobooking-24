@@ -1,42 +1,31 @@
-import {getOffer} from './generating-offers.js';
+import {createOffer} from './generating-offers.js';
 
-const map = document.querySelector('#map-canvas');
 const cardTemplate = document.querySelector('#card')
   .content
   .querySelector('.popup');
+const photoPattern = cardTemplate.querySelector('.popup__photo');
 
-const getPlace = (place) => {
-  switch (place) {
-    case 'palace':
-      return 'Дворец';
-    case 'flat':
-      return 'Квартира';
-    case 'house':
-      return 'Дом';
-    case 'bungalow':
-      return 'Бунгало' ;
-    case 'hotel':
-      return 'Отель';
-  }
+const placeСonvert = {
+  palace: 'Дворец',
+  flat: 'Квартира',
+  house: 'Дом',
+  bungalow: 'Бунгало',
+  hotel: 'Отель',
 };
 
-const sortingFeatures = (offer, cardList) => {
-  const list = cardList.querySelectorAll('li');
+const sortingFeatures = (features) => {
+  const featuresFragment = document.createDocumentFragment();
 
-  list.forEach((currentList) => {
-    const complianceCheck = offer.some((currentOffer) => currentList.classList.contains(`popup__feature--${  currentOffer}`),
-    );
-
-    if (!complianceCheck) {
-      currentList.remove();
-    }
-  });
-  return list;
+  for (const feature of features) {
+    const liFeature = document.createElement('li');
+    liFeature.classList.add('popup__feature', `popup__feature--${feature}`);
+    featuresFragment.appendChild(liFeature);
+  }
+  return featuresFragment;
 };
 
 const generationPhotos = (offer, photos) => {
   const photosFragment = document.createDocumentFragment();
-  const photoPattern = photos.querySelector('.popup__photo');
   photos.innerHTML = '';
 
   offer.forEach((currentUrl) => {
@@ -52,50 +41,27 @@ const createCard = (offer) => {
   const cardClone = cardTemplate.cloneNode(true);
 
   const titleCard = cardClone.querySelector('.popup__title');
-  if (offer.title) {
-    titleCard.textContent = offer.title;
-  } else {
-    titleCard.remove();
-  }
+  titleCard.textContent = offer.title;
+
 
   const addressCard = cardClone.querySelector('.popup__text--address');
-  if (offer.address) {
-    addressCard.textContent = offer.address;
-  } else {
-    addressCard.remove();
-  }
+  addressCard.textContent = offer.address;
 
   const priceCard = cardClone.querySelector('.popup__text--price');
-  if (offer.price) {
-    priceCard.textContent = `${offer.price} ₽/ночь`;
-  } else {
-    priceCard.remove();
-  }
+  priceCard.textContent = `${offer.price} ₽/ночь`;
 
   const typeCard = cardClone.querySelector('.popup__type');
-  if (offer.type) {
-    typeCard.textContent = getPlace(offer.type);
-  } else {
-    typeCard.remove();
-  }
+  typeCard.textContent = placeСonvert[offer.type];
 
   const capacityCard = cardClone.querySelector('.popup__text--capacity');
-  if (offer.rooms && offer.guests) {
-    capacityCard.textContent = `${offer.rooms} комнаты для ${offer.guests}`;
-  } else {
-    capacityCard.remove();
-  }
+  capacityCard.textContent = `${offer.rooms} комнаты для ${offer.guests}`;
 
   const timeCard = cardClone.querySelector('.popup__text--time');
-  if (offer.checkin && offer.checkout) {
-    timeCard.textContent = `Заезд после ${offer.checkin}, выезд до ${offer.checkout}`;
-  } else {
-    timeCard.remove();
-  }
+  timeCard.textContent = `Заезд после ${offer.checkin}, выезд до ${offer.checkout}`;
 
   const featuresCard = cardClone.querySelector('.popup__features');
   if (offer.features) {
-    sortingFeatures(offer.features, featuresCard);
+    featuresCard.appendChild(sortingFeatures(offer.features));
   } else {
     featuresCard.remove();
   }
@@ -124,5 +90,6 @@ const createCard = (offer) => {
   return cardClone;
 };
 
-const sum = createCard(getOffer());
-map.appendChild(sum);
+const renderOffer = createCard(createOffer());
+
+export {renderOffer};

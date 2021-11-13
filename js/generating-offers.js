@@ -1,5 +1,18 @@
 import {getRandomNumber, getRandomFractionalNumber, getRandomNumberValues} from './utils.js';
 
+const MIN_ROOM = 0;
+const MAX_ROOM = 3;
+const MIN_GUESTS = 0;
+const MAX_GUESTS = 3;
+const MIN_PRICE = 10000;
+const MAX_PRICE = 125000;
+const MIN_LATITUBE = 35.65000;
+const MAX_LATITUBE = 35.70000;
+const MIN_LONGITUBE = 139.70000;
+const MAX_LONGITUBE = 139.80000;
+const ROUNDING_COORDINATE = 5;
+const QUANITY_GENERATION = 1;
+
 const titles = [
   'Уютная квартира',
   'Помещение в Токио',
@@ -48,23 +61,7 @@ const photos = [
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg',
 ];
 
-const MIN_ROOM = 0;
-const MAX_ROOM = 3;
-const MIN_GUESTS = 0;
-const MAX_GUESTS = 3;
-
-const MIN_PRICE = 10000;
-const MAX_PRICE = 125000;
-
-const MIN_LATITUBE = 35.65000;
-const MAX_LATITUBE = 35.70000;
-
-const MIN_LONGITUBE = 139.70000;
-const MAX_LONGITUBE = 139.80000;
-
-const ROUNDING_COORDINATE = 5;
-
-const getOffer = () => (
+const createOffer = () => (
   {
     title: titles[getRandomNumber(0, titles.length - 1)],
     address: [getRandomFractionalNumber(MIN_LATITUBE, MAX_LATITUBE, ROUNDING_COORDINATE), getRandomFractionalNumber(MIN_LONGITUBE, MAX_LONGITUBE, ROUNDING_COORDINATE)],
@@ -81,10 +78,8 @@ const getOffer = () => (
   }
 );
 
-const QUANITY_GENERATION = 1;
-
-const createFlyers = () => Array.from({length: QUANITY_GENERATION}, getOffer);
+const createFlyers = () => Array.from({length: QUANITY_GENERATION}, createOffer);
 
 createFlyers;
 
-export {createFlyers, getOffer};
+export {createFlyers, createOffer};
