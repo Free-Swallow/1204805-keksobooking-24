@@ -24,9 +24,8 @@ const sortingFeatures = (features) => {
   return featuresFragment;
 };
 
-const generationPhotos = (offer, photos) => {
+const generationPhotos = (offer) => {
   const photosFragment = document.createDocumentFragment();
-  photos.innerHTML = '';
 
   offer.forEach((currentUrl) => {
     const photoElement = photoPattern.cloneNode(true);
@@ -74,6 +73,7 @@ const createCard = (offer) => {
   }
 
   const photoWrapper = cardClone.querySelector('.popup__photos');
+  photoWrapper.innerHTML = '';
   if (offer.photos) {
     photoWrapper.appendChild(generationPhotos(offer.photos, photoWrapper));
   } else {
