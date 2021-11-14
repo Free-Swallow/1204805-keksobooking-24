@@ -1,6 +1,4 @@
-import {renderOffer} from './popup.js';
-
-const mapWrapper = document.querySelector('#map-canvas');
+// const mapWrapper = document.querySelector('#map-canvas');
 // const LAT_CENTER_MAP = 35.66000;
 // const LNG_CENTER_MAP = 139.75000;
 // const SCALE = 13;
@@ -15,14 +13,14 @@ const disabledMap = () => {
 
 // disabledMap();
 
-const activeMap = () => {
+const activedMap = () => {
   const mapFilter = document.querySelector('.map__filters');
 
   mapFilter.classList.remove('ad-form--disabled');
 };
 
 // const map = L.map(mapWrapper)
-//   .on('load', activeMap)
+//   .on('load', activedMap)
 //   .setView({
 //     lat: LAT_CENTER_MAP,
 //     lng: LNG_CENTER_MAP,
@@ -41,6 +39,5 @@ const activeMap = () => {
 // },);
 
 // marker.aadTo(map);
-export {disabledMap, activeMap};
 
-mapWrapper.appendChild(renderOffer);
+export {disabledMap, activedMap};

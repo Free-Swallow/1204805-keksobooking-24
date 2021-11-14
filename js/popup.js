@@ -1,9 +1,8 @@
-import {createOffer} from './generating-offers.js';
-
 const cardTemplate = document.querySelector('#card')
   .content
   .querySelector('.popup');
-const photoPattern = cardTemplate.querySelector('.popup__photo');
+const photoTemplate = document.querySelector('#photo-template').content;
+const photoPattern = photoTemplate.querySelector('.popup__photo');
 
 const placeСonvert = {
   palace: 'Дворец',
@@ -13,18 +12,19 @@ const placeСonvert = {
   hotel: 'Отель',
 };
 
-const sortingFeatures = (features) => {
+const getFeatures = (features) => {
   const featuresFragment = document.createDocumentFragment();
 
-  for (const feature of features) {
+  features.forEach((feature) => {
     const liFeature = document.createElement('li');
     liFeature.classList.add('popup__feature', `popup__feature--${feature}`);
     featuresFragment.appendChild(liFeature);
-  }
+  });
+
   return featuresFragment;
 };
 
-const generationPhotos = (offer) => {
+const getPhotos = (offer) => {
   const photosFragment = document.createDocumentFragment();
 
   offer.forEach((currentUrl) => {
@@ -60,7 +60,7 @@ const createCard = (offer) => {
 
   const featuresCard = cardClone.querySelector('.popup__features');
   if (offer.features) {
-    featuresCard.appendChild(sortingFeatures(offer.features));
+    featuresCard.appendChild(getFeatures(offer.features));
   } else {
     featuresCard.remove();
   }
@@ -73,9 +73,8 @@ const createCard = (offer) => {
   }
 
   const photoWrapper = cardClone.querySelector('.popup__photos');
-  photoWrapper.innerHTML = '';
   if (offer.photos) {
-    photoWrapper.appendChild(generationPhotos(offer.photos, photoWrapper));
+    photoWrapper.appendChild(getPhotos(offer.photos, photoWrapper));
   } else {
     photoWrapper.remove();
   }
@@ -90,6 +89,4 @@ const createCard = (offer) => {
   return cardClone;
 };
 
-const renderOffer = createCard(createOffer());
-
-export {renderOffer};
+export {createCard};

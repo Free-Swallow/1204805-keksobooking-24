@@ -80,6 +80,4 @@ const createOffer = () => (
 
 const createFlyers = () => Array.from({length: QUANITY_GENERATION}, createOffer);
 
-createFlyers;
-
 export {createFlyers, createOffer};

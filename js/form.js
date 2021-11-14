@@ -28,7 +28,7 @@ const roomsForGuests = {
   100: ['0'],
 };
 
-const validityTitle = () => {
+const validateTitle = () => {
   const titleLength = title.value.length;
 
   if (titleLength < MIN_LETTERS) {
@@ -42,17 +42,17 @@ const validityTitle = () => {
   title.reportValidity();
 };
 
-title.addEventListener('input', validityTitle);
+title.addEventListener('input', validateTitle);
 
-const getMinPrice = () => {
+const onMinPriceChange = () => {
   const minPrice = minPricePlace[type.value];
   price.placeholder = minPrice;
   price.min = minPrice;
 };
 
-type.addEventListener('input', getMinPrice);
+type.addEventListener('input', onMinPriceChange);
 
-const getLimitedGuests = () => {
+const onGuestsChange = () => {
   const selectedRooms = roomNumbers.value;
 
   capacityItem.forEach((item) => {
@@ -63,21 +63,21 @@ const getLimitedGuests = () => {
   });
 };
 
-roomNumbers.addEventListener('input', getLimitedGuests);
+roomNumbers.addEventListener('input', onGuestsChange);
 
-const conversionTimein = () => {
+const onTimeinChange = () => {
   const currentTimein = timeIn.value;
   timeOut.value = currentTimein;
 };
 
-const conversionTimeout = () => {
+const onTimeoutChange = () => {
   const currentTimeout = timeOut.value;
   timeIn.value = currentTimeout;
 };
 
-timeIn.addEventListener('input', conversionTimein);
+timeIn.addEventListener('input', onTimeinChange);
 
-timeOut.addEventListener('input', conversionTimeout);
+timeOut.addEventListener('input', onTimeoutChange);
 
 const disabledForm = () => {
   const form = document.querySelector('.ad-form');
@@ -85,10 +85,10 @@ const disabledForm = () => {
   form.classList.add('ad-form--disabled');
 };
 
-const activeForm = () => {
+const activedForm = () => {
   const form = document.querySelector('.ad-form');
 
   form.classList.remove('ad-form--disabled');
 };
 
-export {disabledForm, activeForm};
+export {disabledForm, activedForm};
