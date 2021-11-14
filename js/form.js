@@ -28,7 +28,7 @@ const roomsForGuests = {
   100: ['0'],
 };
 
-const validateTitle = () => {
+const onTitleChange = () => {
   const titleLength = title.value.length;
 
   if (titleLength < MIN_LETTERS) {
@@ -42,7 +42,7 @@ const validateTitle = () => {
   title.reportValidity();
 };
 
-title.addEventListener('input', validateTitle);
+title.addEventListener('input', onTitleChange);
 
 const onMinPriceChange = () => {
   const minPrice = minPricePlace[type.value];
@@ -85,10 +85,10 @@ const disabledForm = () => {
   form.classList.add('ad-form--disabled');
 };
 
-const activedForm = () => {
+const activateForm = () => {
   const form = document.querySelector('.ad-form');
 
   form.classList.remove('ad-form--disabled');
 };
 
-export {disabledForm, activedForm};
+export {disabledForm, activateForm};
