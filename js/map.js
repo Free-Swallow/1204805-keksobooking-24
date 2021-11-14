@@ -13,7 +13,7 @@ const disabledMap = () => {
 
 // disabledMap();
 
-const activedMap = () => {
+const activateMap = () => {
   const mapFilter = document.querySelector('.map__filters');
 
   mapFilter.classList.remove('ad-form--disabled');
@@ -40,4 +40,4 @@ const activedMap = () => {
 
 // marker.aadTo(map);
 
-export {disabledMap, activedMap};
+export {disabledMap, activateMap};
