@@ -11,7 +11,7 @@ const MAX_LATITUBE = 35.70000;
 const MIN_LONGITUBE = 139.70000;
 const MAX_LONGITUBE = 139.80000;
 const ROUNDING_COORDINATE = 5;
-const QUANITY_GENERATION = 10;
+const MAX_ADS_AMOUNT = 10;
 
 const titles = [
   'Уютная квартира',
@@ -82,6 +82,6 @@ const createOffer = () => (
   }
 );
 
-const createFlyers = () => Array.from({length: QUANITY_GENERATION}, createOffer);
+const createFlyers = () => Array.from({length: MAX_ADS_AMOUNT}, createOffer);
 
 export {createFlyers, createOffer, ROUNDING_COORDINATE};

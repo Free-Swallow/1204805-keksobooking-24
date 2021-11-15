@@ -1,11 +1,10 @@
-import {ROUNDING_COORDINATE, createFlyers} from './generating-offers.js';
+import {createFlyers} from './generating-offers.js';
 import {createCard} from './popup.js';
 
 const mapWrapper = document.querySelector('#map-canvas');
-const address = document.querySelector('#address');
 const LAT_CENTER_MAP = 35.65000;
 const LNG_CENTER_MAP = 139.75000;
-const SCALE = 13;
+const DEFAULT_SCALE = 13;
 
 const disabledMap = () => {
   const mapFilter = document.querySelector('.map__filters');
@@ -28,7 +27,7 @@ const map = L.map(mapWrapper)
   .setView({
     lat: LAT_CENTER_MAP,
     lng: LNG_CENTER_MAP,
-  }, SCALE);
+  }, DEFAULT_SCALE);
 
 const markerGroup = L.layerGroup().addTo(map);
 
@@ -68,13 +67,6 @@ const marker = L.marker(
 
 marker.addTo(map);
 
-const onAddressChange = (evt) => {
-  const {lat, lng} = evt.target.getLatLng();
-  address.value = `${lat.toFixed(ROUNDING_COORDINATE)} ${lng.toFixed(ROUNDING_COORDINATE)}`;
-};
-
-marker.addEventListener('moveend', onAddressChange);
-
 // const onResetMainPin = () => {
 //   marker.setLatLng({
 //       lat: LAT_CENTER_MAP,
@@ -88,7 +80,7 @@ marker.addEventListener('moveend', onAddressChange);
 //  }, SCALE);
 // };
 
-const assemblingOffers = (offers) => {
+const addOffersTomap = (offers) => {
   offers.forEach((offer) => {
     const {location} = offer;
 
@@ -106,6 +98,6 @@ const assemblingOffers = (offers) => {
   });
 };
 
-assemblingOffers(createFlyers());
+addOffersTomap(createFlyers());
 
-export {disabledMap, activateMap};
+export {disabledMap, activateMap, addOffersTomap, marker, LAT_CENTER_MAP, LNG_CENTER_MAP};
