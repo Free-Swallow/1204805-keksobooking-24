@@ -11,7 +11,7 @@ const MAX_LATITUBE = 35.70000;
 const MIN_LONGITUBE = 139.70000;
 const MAX_LONGITUBE = 139.80000;
 const ROUNDING_COORDINATE = 5;
-const QUANITY_GENERATION = 1;
+const MAX_ADS_AMOUNT = 10;
 
 const titles = [
   'Уютная квартира',
@@ -75,9 +75,13 @@ const createOffer = () => (
     description: descriptions[getRandomNumber(0, descriptions.length - 1)],
     photos: getRandomNumberValues(photos),
     avatar: `img/avatars/user${avatarsNum[getRandomNumber(0, avatarsNum.length - 1)]}.png`,
+    location: {
+      lat: getRandomFractionalNumber(MIN_LATITUBE, MAX_LATITUBE, ROUNDING_COORDINATE),
+      lng: getRandomFractionalNumber(MIN_LONGITUBE, MAX_LONGITUBE, ROUNDING_COORDINATE),
+    },
   }
 );
 
-const createFlyers = () => Array.from({length: QUANITY_GENERATION}, createOffer);
+const createFlyers = () => Array.from({length: MAX_ADS_AMOUNT}, createOffer);
 
-export {createFlyers, createOffer};
+export {createFlyers, createOffer, ROUNDING_COORDINATE};

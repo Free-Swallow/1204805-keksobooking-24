@@ -1,6 +1,9 @@
+import {ROUNDING_COORDINATE} from './generating-offers.js';
+import {marker, LAT_CENTER_MAP, LNG_CENTER_MAP} from './map.js';
+
 const adForm = document.querySelector('.ad-form');
 const title = document.querySelector('#title');
-// const address = document.querySelector('#address');
+const address = document.querySelector('#address');
 // const typeList = document.querySelector('#type');
 const price = document.querySelector('#price');
 const roomNumbers = document.querySelector('#room_number');
@@ -90,5 +93,18 @@ const activateForm = () => {
 
   form.classList.remove('ad-form--disabled');
 };
+
+const setAddress = (evt) => {
+  const {lat, lng} = evt.target.getLatLng();
+  address.value = `${lat.toFixed(ROUNDING_COORDINATE)} ${lng.toFixed(ROUNDING_COORDINATE)}`;
+};
+
+const setAddressDefault = () => {
+  address.value = `${LAT_CENTER_MAP} ${LNG_CENTER_MAP}`;
+};
+
+setAddressDefault();
+
+marker.addEventListener('moveend', setAddress);
 
 export {disabledForm, activateForm};
