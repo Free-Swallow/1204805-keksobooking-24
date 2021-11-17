@@ -76,9 +76,9 @@ const onGuestsChange = () => {
 
   capacityItem.forEach((item) => {
     const availableOptions = roomsForGuests[selectedRooms];
-
-    item.hidden = (availableOptions.indexOf(item.value) === -1);
-    item.selected = !(availableOptions.indexOf(item.value) === -1);
+    const comparableValue = (availableOptions.indexOf(item.value) === -1);
+    item.hidden = comparableValue;
+    item.selected = !comparableValue;
   });
 };
 
