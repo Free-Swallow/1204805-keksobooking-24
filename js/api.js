@@ -9,7 +9,7 @@ const displayFetchOffers = (onSuccess, onError) => fetch(FETCH_OFFERS_GET)
       return response.json();
     }
 
-    throw new Error(`${response.status} ${response.statusText}`);
+    throw new Error();
   })
   .then((data) => {
     onSuccess(data);

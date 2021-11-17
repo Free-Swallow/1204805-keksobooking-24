@@ -50,6 +50,7 @@ const getErrorMessage = () => {
   const keyCloseErrorPopup = (evt) => {
     if (evt.key === keysClose.ESCAPE || evt.key === keysClose.ESC) {
       cloneErrMessage.remove();
+      evt.preventDefault();
     }
   };
 
@@ -74,10 +75,10 @@ const getSuccessMessage = () => {
   };
 
   const keyCloseSuccessPopup = (evt) => {
-    evt.preventDefault();
 
     if (evt.key === keysClose.ESCAPE || evt.key === keysClose.ESC) {
       cloneSuccessMessage.remove();
+      evt.preventDefault();
     }
   };
 
