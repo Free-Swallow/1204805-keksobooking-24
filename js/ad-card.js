@@ -4,7 +4,7 @@ const cardTemplate = document.querySelector('#card')
 const photoTemplate = document.querySelector('#photo-template').content;
 const photoPattern = photoTemplate.querySelector('.popup__photo');
 
-const placeСonvert = {
+const placeConvert = {
   palace: 'Дворец',
   flat: 'Квартира',
   house: 'Дом',
@@ -36,7 +36,7 @@ const getPhotos = (offer) => {
   return photosFragment;
 };
 
-const createCard = (offer) => {
+const createCard = ({ author, offer }) => {
   const cardClone = cardTemplate.cloneNode(true);
 
   const titleCard = cardClone.querySelector('.popup__title');
@@ -50,7 +50,7 @@ const createCard = (offer) => {
   priceCard.textContent = `${offer.price} ₽/ночь`;
 
   const typeCard = cardClone.querySelector('.popup__type');
-  typeCard.textContent = placeСonvert[offer.type];
+  typeCard.textContent = placeConvert[offer.type];
 
   const capacityCard = cardClone.querySelector('.popup__text--capacity');
   capacityCard.textContent = `${offer.rooms} комнаты для ${offer.guests}`;
@@ -80,8 +80,8 @@ const createCard = (offer) => {
   }
 
   const avatarCard = cardClone.querySelector('.popup__avatar');
-  if (offer.avatar) {
-    avatarCard.src = offer.avatar;
+  if (author.avatarCard) {
+    avatarCard.src = author.avatarCard;
   } else {
     avatarCard.remove();
   }
