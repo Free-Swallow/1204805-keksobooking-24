@@ -3,8 +3,8 @@ const placeType = filterMap.querySelector('#housing-type');
 const placePrice = filterMap.querySelector('#housing-price');
 const placeRooms = filterMap.querySelector('#housing-rooms');
 const placeGuests = filterMap.querySelector('#housing-guests');
-
-const PRICE_RANGE = {
+const DEFAULT = 'any';
+const PriceRange = {
   low: {
     START: 0,
     END: 10000,
@@ -19,50 +19,25 @@ const PRICE_RANGE = {
   },
 };
 
-const DEFAULT = 'any';
+const checkFeatures = ({offer}) => {
+  const selected = filterMap.querySelectorAll('input[name="features"]:checked');
 
-const offerFilters = ({offer}) => {
-  const currentFeatures = filterMap.querySelectorAll('input[name="features"]:checked');
-
-  let typeValue = true;
-  let roomsValue = true;
-  let guestsValue = true;
-  let priceValue = true;
-  let featuresValue = true;
-
-  if (currentFeatures.length) {
-    currentFeatures.forEach((feature) => {
-      if (!offer.features) {
-        featuresValue = false;
-      } else  if (offer.features.indexOf(feature.value) === -1) {
-        featuresValue = false;
-      }
-    });
+  if (offer.features) {
+    return [...selected].every((item) => offer.features.includes(item.value));
   }
 
-  if (placeType.value !== DEFAULT) {
-    typeValue = offer.type === placeType.value;
-  }
-
-  if (placeRooms.value !== DEFAULT) {
-    roomsValue = offer.rooms === Number(placeRooms.value);
-  }
-
-  if (placeGuests.value !== DEFAULT) {
-    guestsValue = offer.guests === Number(placeGuests.value);
-  }
-
-  if (placePrice.value !== DEFAULT) {
-    priceValue = offer.price >= PRICE_RANGE[placePrice.value].START && offer.price < PRICE_RANGE[placePrice.value].END;
-  }
-
-  return typeValue && roomsValue && guestsValue && featuresValue && priceValue;
+  return offer.features;
 };
 
-const offerFiltration = (offer) => offer.filter(offerFilters);
+const checkPlaceType = ({offer}) => placeType.value === DEFAULT || offer.type === placeType.value;
+const checkRooms = ({offer}) => placeRooms.value === DEFAULT || offer.rooms === Number(placeRooms.value);
+const checkGuests = ({offer}) => placeGuests.value === DEFAULT || offer.guests === Number(placeGuests.value);
+const checkPrice = ({offer}) => placePrice.value === DEFAULT ||  offer.price >= PriceRange[placePrice.value].START && offer.price < PriceRange[placePrice.value].END;
+
+const filterOffers = (offers) => offers.filter((offer) => checkPlaceType(offer) && checkRooms(offer) && checkGuests(offer) && checkPrice(offer) && checkFeatures(offer));
 
 const setFilterEditing = (callback) => {
   filterMap.addEventListener('change', callback);
 };
 
-export {offerFiltration, setFilterEditing};
+export {filterOffers, setFilterEditing};

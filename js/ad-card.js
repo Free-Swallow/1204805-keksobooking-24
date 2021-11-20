@@ -3,8 +3,7 @@ const cardTemplate = document.querySelector('#card')
   .querySelector('.popup');
 const photoTemplate = document.querySelector('#photo-template').content;
 const photoPattern = photoTemplate.querySelector('.popup__photo');
-
-const placeConvert = {
+const PlaceConvert = {
   palace: 'Дворец',
   flat: 'Квартира',
   house: 'Дом',
@@ -42,7 +41,6 @@ const createCard = ({ author, offer }) => {
   const titleCard = cardClone.querySelector('.popup__title');
   titleCard.textContent = offer.title;
 
-
   const addressCard = cardClone.querySelector('.popup__text--address');
   addressCard.textContent = offer.address;
 
@@ -50,7 +48,7 @@ const createCard = ({ author, offer }) => {
   priceCard.textContent = `${offer.price} ₽/ночь`;
 
   const typeCard = cardClone.querySelector('.popup__type');
-  typeCard.textContent = placeConvert[offer.type];
+  typeCard.textContent = PlaceConvert[offer.type];
 
   const capacityCard = cardClone.querySelector('.popup__text--capacity');
   capacityCard.textContent = `${offer.rooms} комнаты для ${offer.guests}`;

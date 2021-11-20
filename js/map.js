@@ -2,31 +2,40 @@ import {createCard} from './ad-card.js';
 import {setAddress} from './form.js';
 
 const mapWrapper = document.querySelector('#map-canvas');
+const DEFAULT_SCALE = 13;
 const defaultCoords = {
   lat: 35.65000,
   lng: 139.75000,
 };
 
-const DEFAULT_SCALE = 13;
-
-// MAP STATUS
-
-const disabledMap = () => {
+const disengageMap = () => {
   const mapFilter = document.querySelector('.map__filters');
   mapFilter.classList.add('ad-form--disabled');
 };
 
-disabledMap();
+disengageMap();
 
 const activateMap = () => {
   const mapFilter = document.querySelector('.map__filters');
   mapFilter.classList.remove('ad-form--disabled');
 };
 
-// ADD MAP
+const disengageForm = () => {
+  const form = document.querySelector('.ad-form');
+
+  form.classList.add('ad-form--disabled');
+};
+
+disengageForm();
+
+const activateForm = () => {
+  const form = document.querySelector('.ad-form');
+
+  form.classList.remove('ad-form--disabled');
+};
 
 const map = L.map(mapWrapper)
-  .on('load', activateMap)
+  .on('load', activateForm)
   .setView(defaultCoords, DEFAULT_SCALE);
 
 const markerGroup = L.layerGroup().addTo(map);
@@ -54,8 +63,6 @@ const offerPin = L.icon(
   },
 );
 
-// ADD MARKER
-
 const mainPin = L.marker(
   defaultCoords,
   {
@@ -70,15 +77,11 @@ const setDefaultCoords = () => {
   mainPin.setLatLng(defaultCoords);
 };
 
-// MAP RESET
-
 const resetAllMap = () => {
   mainPin.setLatLng(defaultCoords);
   map.setView(defaultCoords, DEFAULT_SCALE);
   map.closePopup();
 };
-
-// CREATE PINS
 
 const addOffersToMap = (offers) => {
   resetAllMap();
@@ -113,10 +116,9 @@ const onMarkerMove = (evt) => {
 mainPin.addEventListener('moveend', onMarkerMove);
 
 export {
-  disabledMap,
+  disengageMap,
   activateMap,
   addOffersToMap,
-  mapWrapper,
   closePopup,
   map,
   defaultCoords,

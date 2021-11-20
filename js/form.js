@@ -20,28 +20,23 @@ const timeOut = adForm.querySelector('#timeout');
 const type = adForm.querySelector('#type');
 const buttonReset = adForm.querySelector('.ad-form__reset');
 const mapFilters = document.querySelector('.map__filters');
-
 const MIN_LETTERS = 30;
 const MAX_LETTERS = 100;
 const BASE_PRICE = 1000;
 const ROUNDING_COORDINATE = 5;
-
-const minPricePlace = {
+const MinPricePlace = {
   bungalow: '0',
   flat: '1000',
   hotel: '3000',
   house: '5000',
   palace: '10000',
 };
-
 const roomsForGuests = {
   1: ['1'],
   2: ['1', '2'],
   3: ['1', '2', '3'],
   100: ['0'],
 };
-
-// TITLE CHANGE
 
 const onTitleChange = () => {
   const titleLength = title.value.length;
@@ -59,17 +54,13 @@ const onTitleChange = () => {
 
 title.addEventListener('input', onTitleChange);
 
-// PRICE CHANGE
-
 const onMinPriceChange = () => {
-  const minPrice = minPricePlace[type.value];
+  const minPrice = MinPricePlace[type.value];
   price.placeholder = minPrice;
   price.min = minPrice;
 };
 
 type.addEventListener('input', onMinPriceChange);
-
-// ROOM AND GUESTS
 
 const onGuestsChange = () => {
   const selectedRooms = roomNumbers.value;
@@ -84,8 +75,6 @@ const onGuestsChange = () => {
 
 roomNumbers.addEventListener('input', onGuestsChange);
 
-// TIME CHANGE
-
 const onTimeinChange = () => {
   timeOut.value = timeIn.value;
 };
@@ -97,29 +86,11 @@ const onTimeoutChange = () => {
 timeIn.addEventListener('input', onTimeinChange);
 timeOut.addEventListener('input', onTimeoutChange);
 
-// FORM STATUS
-
-const disabledForm = () => {
-  const form = document.querySelector('.ad-form');
-
-  form.classList.add('ad-form--disabled');
-};
-
-const activateForm = () => {
-  const form = document.querySelector('.ad-form');
-
-  form.classList.remove('ad-form--disabled');
-};
-
-// ADDRESS
-
 address.value = `${defaultCoords.lat.toFixed(ROUNDING_COORDINATE)} ${defaultCoords.lng.toFixed(ROUNDING_COORDINATE)}`;
 
 const setAddress = ({lat, lng}) => {
   address.value = `${lat.toFixed(ROUNDING_COORDINATE)} ${lng.toFixed(ROUNDING_COORDINATE)}`;
 };
-
-// RESET BUTTON
 
 const resetForm = () => {
   adForm.reset();
@@ -141,8 +112,6 @@ buttonReset.addEventListener('click', (evt) => {
   setAddress(defaultCoords);
 });
 
-// FORM LISTENER
-
 const onCreateSuccess = () => {
   getSuccessMessage();
   resetForm();
@@ -161,7 +130,5 @@ adForm.addEventListener('submit', (evt) => {
 });
 
 export {
-  disabledForm,
-  activateForm,
   setAddress
 };

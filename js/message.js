@@ -1,13 +1,15 @@
-import {disabledMap} from './map.js';
+import {disengageMap} from './map.js';
 
+const errorTemplate = document.querySelector('#error').content;
+const errorMessage = errorTemplate.querySelector('div');
+const successTemplate = document.querySelector('#success').content;
+const successMessage = successTemplate.querySelector('div');
 const body = document.querySelector('body');
-const keysClose = {
+const ALERT_SHOW_TIME = 3000;
+const KeysClose = {
   ESC: 'Esc',
   ESCAPE: 'Escape',
 };
-const ALERT_SHOW_TIME = 3000;
-
-// MESSAGE ERROR
 
 const showAlert = (message) => {
   const alertContainer = document.createElement('div');
@@ -25,66 +27,41 @@ const showAlert = (message) => {
 
   document.body.append(alertContainer);
 
-  disabledMap();
+  disengageMap();
 
   setTimeout(() => {
     alertContainer.remove();
   }, ALERT_SHOW_TIME);
 };
 
-// ERROR MESSAGE
+const getSubscriptionResult = (popup) => {
+  const cloneMessage = popup.cloneNode(true);
 
-const errorTemplate = document.querySelector('#error').content;
-const errorMessage = errorTemplate.querySelector('div');
+  body.appendChild(cloneMessage);
 
-const getErrorMessage = () => {
-  const cloneErrMessage = errorMessage.cloneNode(true);
+  function closeWindow() {
+    cloneMessage.remove();
+    document.removeEventListener('click', onClosePopup);
+    document.removeEventListener('keydown', onCloseKeyPopup);
+  }
 
-  body.appendChild(cloneErrMessage);
-
-  const closeErrPopup = () => {
-    cloneErrMessage.remove();
-    document.addEventListener('click', closeErrPopup);
-  };
-
-  const keyCloseErrorPopup = (evt) => {
-    if (evt.key === keysClose.ESCAPE || evt.key === keysClose.ESC) {
-      cloneErrMessage.remove();
+  function onCloseKeyPopup(evt) {
+    if (evt.key === KeysClose.ESCAPE || evt.key === KeysClose.ESC) {
       evt.preventDefault();
+      closeWindow();
     }
-  };
+  }
 
-  document.addEventListener('keydown', keyCloseErrorPopup);
-  document.addEventListener('click', closeErrPopup);
+  function onClosePopup() {
+    closeWindow();
+  }
 
+
+  document.addEventListener('keydown', onCloseKeyPopup);
+  document.addEventListener('click', onClosePopup);
 };
 
-// SUCCESS MESSAGE
-
-const successTemplate = document.querySelector('#success').content;
-const successMessage = successTemplate.querySelector('div');
-
-const getSuccessMessage = () => {
-  const cloneSuccessMessage = successMessage.cloneNode(true);
-
-  body.appendChild(cloneSuccessMessage);
-
-  const closeSuccessPopup = () => {
-    cloneSuccessMessage.remove();
-    document.addEventListener('click', closeSuccessPopup);
-  };
-
-  const keyCloseSuccessPopup = (evt) => {
-
-    if (evt.key === keysClose.ESCAPE || evt.key === keysClose.ESC) {
-      cloneSuccessMessage.remove();
-      evt.preventDefault();
-    }
-  };
-
-  document.addEventListener('keydown', keyCloseSuccessPopup);
-  document.addEventListener('click', closeSuccessPopup);
-
-};
+const getSuccessMessage = () => getSubscriptionResult(successMessage);
+const getErrorMessage = () => getSubscriptionResult(errorMessage);
 
 export {showAlert, getSuccessMessage, getErrorMessage};

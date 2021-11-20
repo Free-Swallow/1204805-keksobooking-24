@@ -1,11 +1,14 @@
+import {activateMap} from './map.js';
+
 const FETCH_OFFERS_GET = 'https://24.javascript.pages.academy/keksobooking/data';
 const FETCH_OFFERS_GIVEAWAY = 'https://24.javascript.pages.academy/keksobooking';
+const statusOk = 200;
 
-// LOADER
 
 const displayFetchOffers = (onSuccess, onError) => fetch(FETCH_OFFERS_GET)
   .then((response) => {
     if (response.ok) {
+      activateMap();
       return response.json();
     }
 
@@ -26,7 +29,7 @@ const createAd = (body, onSuccess, onError) => {
       body,
     },
   ).then((response) => {
-    if (response.status === 200) {
+    if (response.status === statusOk) {
       onSuccess();
     } else {
       onError();
