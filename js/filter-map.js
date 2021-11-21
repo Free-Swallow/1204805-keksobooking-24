@@ -29,7 +29,7 @@ const checkFeatures = ({offer}) => {
   return offer.features;
 };
 
-const checkPlaceType = ({offer}) => (placeType.value === DEFAULT || offer.type === placeType.value);
+const checkPlaceType = ({offer}) => placeType.value === DEFAULT || offer.type === placeType.value;
 const checkRooms = ({offer}) => placeRooms.value === DEFAULT || offer.rooms === Number(placeRooms.value);
 const checkGuests = ({offer}) => placeGuests.value === DEFAULT || offer.guests === Number(placeGuests.value);
 const checkPrice = ({offer}) => placePrice.value === DEFAULT ||  offer.price >= priceRange[placePrice.value].start && offer.price < priceRange[placePrice.value].end;
