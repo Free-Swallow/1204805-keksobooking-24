@@ -3,28 +3,18 @@ import {createAd, displayFetchOffers} from './api.js';
 import {
   closePopup,
   setDefaultCoords,
-  defaultCoords,
+  DEFAULT_COORDS,
   resetAllMap,
   addOffersToMap
 } from './map.js';
 
-const adForm = document.querySelector('.ad-form');
-const title = document.querySelector('#title');
-const address = document.querySelector('#address');
-const price = document.querySelector('#price');
-const roomNumbers = document.querySelector('#room_number');
-const capacity = document.querySelector('#capacity');
-const capacityItem = capacity.querySelectorAll('option');
-const timeIn = adForm.querySelector('#timein');
-const timeOut = adForm.querySelector('#timeout');
-const type = adForm.querySelector('#type');
-const buttonReset = adForm.querySelector('.ad-form__reset');
-const mapFilters = document.querySelector('.map__filters');
 const MIN_LETTERS = 30;
 const MAX_LETTERS = 100;
 const BASE_PRICE = 1000;
 const ROUNDING_COORDINATE = 5;
-const MinPricePlace = {
+const START_ADS_AMOUNT = 0;
+const END_ADS_AMOUNT = 10;
+const minPricePlace = {
   bungalow: '0',
   flat: '1000',
   hotel: '3000',
@@ -37,6 +27,18 @@ const roomsForGuests = {
   3: ['1', '2', '3'],
   100: ['0'],
 };
+const adForm = document.querySelector('.ad-form');
+const title = document.querySelector('#title');
+const address = document.querySelector('#address');
+const price = document.querySelector('#price');
+const roomNumbers = document.querySelector('#room_number');
+const capacity = document.querySelector('#capacity');
+const capacityItems = capacity.querySelectorAll('option');
+const timeIn = adForm.querySelector('#timein');
+const timeOut = adForm.querySelector('#timeout');
+const type = adForm.querySelector('#type');
+const buttonReset = adForm.querySelector('.ad-form__reset');
+const mapFilters = document.querySelector('.map__filters');
 
 const onTitleChange = () => {
   const titleLength = title.value.length;
@@ -55,7 +57,7 @@ const onTitleChange = () => {
 title.addEventListener('input', onTitleChange);
 
 const onMinPriceChange = () => {
-  const minPrice = MinPricePlace[type.value];
+  const minPrice = minPricePlace[type.value];
   price.placeholder = minPrice;
   price.min = minPrice;
 };
@@ -65,7 +67,7 @@ type.addEventListener('input', onMinPriceChange);
 const onGuestsChange = () => {
   const selectedRooms = roomNumbers.value;
 
-  capacityItem.forEach((item) => {
+  capacityItems.forEach((item) => {
     const availableOptions = roomsForGuests[selectedRooms];
     const comparableValue = (availableOptions.indexOf(item.value) === -1);
     item.hidden = comparableValue;
@@ -86,7 +88,7 @@ const onTimeoutChange = () => {
 timeIn.addEventListener('input', onTimeinChange);
 timeOut.addEventListener('input', onTimeoutChange);
 
-address.value = `${defaultCoords.lat.toFixed(ROUNDING_COORDINATE)} ${defaultCoords.lng.toFixed(ROUNDING_COORDINATE)}`;
+address.value = `${DEFAULT_COORDS.lat.toFixed(ROUNDING_COORDINATE)} ${DEFAULT_COORDS.lng.toFixed(ROUNDING_COORDINATE)}`;
 
 const setAddress = ({lat, lng}) => {
   address.value = `${lat.toFixed(ROUNDING_COORDINATE)} ${lng.toFixed(ROUNDING_COORDINATE)}`;
@@ -95,13 +97,13 @@ const setAddress = ({lat, lng}) => {
 const resetForm = () => {
   adForm.reset();
   price.placeholder = BASE_PRICE;
-
-  setAddress(defaultCoords);
+  setAddress(DEFAULT_COORDS);
   closePopup();
+  onGuestsChange();
   resetAllMap();
   mapFilters.reset();
   displayFetchOffers((data) => {
-    addOffersToMap(data.slice(0, 10));
+    addOffersToMap(data.slice(START_ADS_AMOUNT, END_ADS_AMOUNT));
   }, showAlert);
 };
 
@@ -109,7 +111,7 @@ buttonReset.addEventListener('click', (evt) => {
   evt.preventDefault();
   resetForm();
   setDefaultCoords();
-  setAddress(defaultCoords);
+  setAddress(DEFAULT_COORDS);
 });
 
 const onCreateSuccess = () => {
@@ -130,5 +132,7 @@ adForm.addEventListener('submit', (evt) => {
 });
 
 export {
-  setAddress
+  setAddress,
+  START_ADS_AMOUNT,
+  END_ADS_AMOUNT
 };

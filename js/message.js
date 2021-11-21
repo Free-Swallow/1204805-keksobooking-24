@@ -1,15 +1,15 @@
 import {disengageMap} from './map.js';
 
-const errorTemplate = document.querySelector('#error').content;
-const errorMessage = errorTemplate.querySelector('div');
-const successTemplate = document.querySelector('#success').content;
-const successMessage = successTemplate.querySelector('div');
-const body = document.querySelector('body');
 const ALERT_SHOW_TIME = 3000;
 const KeysClose = {
   ESC: 'Esc',
   ESCAPE: 'Escape',
 };
+const errorTemplate = document.querySelector('#error').content;
+const errorMessage = errorTemplate.querySelector('div');
+const successTemplate = document.querySelector('#success').content;
+const successMessage = successTemplate.querySelector('div');
+const body = document.querySelector('body');
 
 const showAlert = (message) => {
   const alertContainer = document.createElement('div');

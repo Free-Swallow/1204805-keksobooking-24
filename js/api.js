@@ -1,9 +1,8 @@
 import {activateMap} from './map.js';
 
+const STATUS_OK = 200;
 const FETCH_OFFERS_GET = 'https://24.javascript.pages.academy/keksobooking/data';
 const FETCH_OFFERS_GIVEAWAY = 'https://24.javascript.pages.academy/keksobooking';
-const statusOk = 200;
-
 
 const displayFetchOffers = (onSuccess, onError) => fetch(FETCH_OFFERS_GET)
   .then((response) => {
@@ -29,7 +28,7 @@ const createAd = (body, onSuccess, onError) => {
       body,
     },
   ).then((response) => {
-    if (response.status === statusOk) {
+    if (response.status === STATUS_OK) {
       onSuccess();
     } else {
       onError();
