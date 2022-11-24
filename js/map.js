@@ -49,7 +49,7 @@ L.tileLayer(
 
 const mainPinIcon = L.icon(
   {
-    iconUrl: '../img/main-pin.svg',
+    iconUrl: 'img/main-pin.svg',
     iconSize: [52, 52],
     iconAnchor: [52, 26],
   },
@@ -57,7 +57,7 @@ const mainPinIcon = L.icon(
 
 const offerPin = L.icon(
   {
-    iconUrl: '../img/pin.svg',
+    iconUrl: 'img/pin.svg',
     iconSize: [40, 40],
     iconAnchor: [40, 20],
   },
